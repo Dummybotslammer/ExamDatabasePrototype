@@ -1,0 +1,12 @@
+Sample Code:
+def func():
+    print("hello")
+
+dict = {"a": func}
+dict["a"]()
+
+----------------------
+| Name | Class | Grade  
+----------------------    
+|      |       |
+|   a  |       |
