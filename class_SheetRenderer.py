@@ -18,7 +18,7 @@ class SheetTextRenderer():
         self._bufferWidth = bufferWidth
         self._bufferHeight = bufferHeight
         self._defaultText = defaultText
-        self._sheetRenderBuffer = [[self._defaultText]*self._bufferWidth]*self._bufferHeight
+        self._sheetRenderBuffer = [[self._defaultText]*self._bufferWidth for _ in range(self._bufferHeight)]
         self._cellSize = cellSize
         self._cellSpacing = cellSpacing
         self._horizontalBorderCharacter = horizontalBorderCharacter
@@ -88,7 +88,10 @@ class SheetTextRenderer():
         self._cellSize = cellSize
 
     #Rendering functions:
-    def RenderSheet(self, label):
+    def RenderSheet(self, label:str, sheet:list):
+        #Sets the rendered sheet to the sheet given.
+        self._sheetRenderBuffer = sheet
+
         #Prints a top cover for the label, and the beginning of the sheet. Might want to redo the code
         print(self._horizontalBorderCharacter*(self._cellSize+(2*self._cellSpacing)+1)*self._bufferWidth, end=self._horizontalBorderCharacter+"\n")
         print(label)
@@ -99,12 +102,12 @@ class SheetTextRenderer():
         #Test code for the cell printing
         for y in self._sheetRenderBuffer:
             for x in y:
-                if len(x) > self._cellSize:
+                if len(str(x)) > self._cellSize:
                     #TODO 
                     pass
 
-                elif len(x) < self._cellSize:
-                    print(self._verticalBorderCharacter + " "*1 + str(x) + " "*(self._cellSize-len(x)), end=" "*self._cellSpacing)
+                elif len(str(x)) < self._cellSize:
+                    print(self._verticalBorderCharacter + " "*1 + str(x) + " "*(self._cellSize-len(str(x))), end=" "*self._cellSpacing)
 
                 #In this scenario, the spacing would be perfect.
                 else:

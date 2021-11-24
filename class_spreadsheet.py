@@ -1,13 +1,15 @@
 
 class Sheet():
-    def __init__(self, width:int, height:int, name = "New Sheet", defaultValue=None, columnLabel = []):
+    def __init__(self, width:int, height:int, columnLabel:dict, name = "New Sheet", defaultValue=None):
         self._name = name
         self._width = width
         self._height = height
 
         self._defaultValue = defaultValue
-        self._cells = [[self._defaultValue]*self._width]*self._height
-        self._columnLabel = columnLabel
+        self._cells = [[self._defaultValue]*self._width for _ in range(self._height)]
+
+        #TODO setters and getters and other stuff for this later.
+        self.columnLabel = columnLabel
         
     def __repr__(self) -> str:
         return self._name
@@ -44,3 +46,11 @@ class Sheet():
 
     def generate_NewSheet(self):
         self._cells = [[self._defaultValue]*self._width]*self._height
+
+    def set_columnValues(self, args:list, columnIndex=0):
+        for x in range (0, len(args)):
+            self._cells[x][columnIndex] = args[x]
+
+    def set_rowValues(self, args:list, rowIndex=0):
+        for x in range (0, len(args)):
+            self._cells[rowIndex][x] = args[x]
